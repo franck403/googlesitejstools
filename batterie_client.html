@@ -1,0 +1,16 @@
+<script type="module">
+  import {Peer} from "https://esm.sh/peerjs@1.5.4?bundle-deps"
+  let params = new URLSearchParams(document.location.search);
+  let id = params.get("id");
+  let sid = params.get("sid");
+  var peer = new Peer(id);
+  var conn = peer.connect(sid);
+  conn.on('open', function(){
+    conn.send('hi!');
+  });
+  peer.on('connection', function(conn) {
+  conn.on('data', function(data){
+    console.log(data);
+  });
+});
+</script>
